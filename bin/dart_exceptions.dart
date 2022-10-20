@@ -13,11 +13,49 @@ void testingNullSafety(){
   if (randomNumber <= 5) {
     myAccount = Account(name: "Richart", balance: 200, isAuthenticated: true);
   }
+  
+  // Not Safe
+  // print(myAccount!.balance);
+  
+  // if (myAccount != null) {
+  //   print(myAccount.balance);
+  // } else {
+  //   print("Conta nula");
+  // }
 
+  // print(myAccount != null ? myAccount.balance : "Conta nula");
+
+  // Print balance only if myAccount not null, else print null
+  print(myAccount?.balance);
+}
+
+void testingPropertyNullSafety(){
+  Account myAccount = Account(name: "Richart", balance: 200, isAuthenticated: true);
+
+  //Simulando comunicação externa
+  Random rng = Random();
+  int randomNumber = rng.nextInt(10);
+  if (randomNumber <= 5) {
+    myAccount.createdAt = DateTime.now();
+  }
+
+  print(myAccount.createdAt);
+
+  // Does not work. createdAt can be null
+  // print(myAccount.createdAt.day);
+
+  // Not safe
+  // print(myAccount.createdAt!.day);
+
+  if (myAccount.createdAt != null) {
+    // Does not work
+    // print(myAccount.createdAt.day);
+    print(myAccount.createdAt!.day);
+  }
 }
 
 void main() {
-  testingNullSafety();
+  testingPropertyNullSafety();
 
   // Assert
   // Account accountTest = Account(name: "Richart", balance: -20, isAuthenticated: true);
